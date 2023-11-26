@@ -127,9 +127,9 @@ public class TurnoService implements ITurnoService {
         modelMapper.typeMap(TurnoEntradaDto.class, Turno.class)
                 .addMappings(modelMapper -> modelMapper.map(TurnoEntradaDto::getOdontologo_id, Turno::setOdontologo))
                 .addMappings(modelMapper -> modelMapper.map(TurnoEntradaDto::getPaciente_id, Turno::setPaciente));
-        modelMapper.typeMap(Turno.class, TurnoSalidaDto.class)
-                .addMappings(modelMapper -> modelMapper.map(Turno::getOdontologo, TurnoSalidaDto::setOdontologo_id))
-                .addMappings(modelMapper -> modelMapper.map(Turno::getPaciente, TurnoSalidaDto::setPaciente_id));
+        modelMapper.typeMap(Turno.class, TurnoSalidaDto.class);
+            //    .addMappings(modelMapper -> modelMapper.map(Turno::getOdontologo, TurnoSalidaDto::setOdontologo_id))
+            //    .addMappings(modelMapper -> modelMapper.map(Turno::getPaciente, TurnoSalidaDto::setPaciente_id));
 
         modelMapper.typeMap(TurnoModificacionEntradaDto.class, Turno.class)
                 .addMappings(modelMapper -> modelMapper.map(TurnoModificacionEntradaDto::getOdontologoEntradaDto, Turno::setOdontologo))
