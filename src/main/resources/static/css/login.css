@@ -1,0 +1,64 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Estilos para el contenedor del formulario */
+  .login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Estilos para el título del formulario */
+  .login-container h2 {
+    margin-bottom: 20px;
+    color: #008cba; /* Color celeste */
+  }
+  
+  /* Estilos para los campos del formulario */
+  .login-container form div {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .login-container label {
+    display: block;
+    font-weight: bold;
+    color: #008cba; /* Color celeste */
+  }
+  
+  .login-container input[type="text"],
+  .login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Estilos para el botón del formulario */
+  .login-container button {
+    padding: 10px 20px;
+    background-color: #008cba; /* Color celeste */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .login-container button:hover {
+    background-color: #005f75; /* Color celeste más oscuro al pasar el cursor */
+  }
+  
+  /* Estilos para el mensaje de error */
+  .error-message {
+    color: red;
+  }
