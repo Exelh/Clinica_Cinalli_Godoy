@@ -2,12 +2,12 @@ window.addEventListener('load', function () {
     (function(){
 
 
-      const url = '/odontologo'+'/todos';
+      const url = "http://localhost:8081"
       const settings = {
         method: 'GET'
       }
 
-      fetch(url,settings)
+      fetch(`${url}/odontologos/listar`, settings)
       .then(response => response.json())
       .then(data => {
 
@@ -47,7 +47,7 @@ window.addEventListener('load', function () {
 
     (function(){
       let pathname = window.location.pathname;
-      if (pathname == "/peliculaList.html") {
+      if (pathname == "/odontologoTable") {
           document.querySelector(".nav .nav-item a:last").addClass("active");
       }
     })

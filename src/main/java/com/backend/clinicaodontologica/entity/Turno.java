@@ -14,10 +14,10 @@ public class Turno {
     private LocalDateTime fechaYHora;
 
     @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "odontologo_id")
+    @JoinColumn(name = "odontologoId")
     private Odontologo odontologo;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "pacienteId")
     private Paciente paciente;
 
     public Turno() {

@@ -3,6 +3,7 @@ window.addEventListener('load', function () {
 
 
     const formulario = document.querySelector('#update_turno_form');
+    const url = "http://localhost:8081"
 
     formulario.addEventListener('submit', function (event) {
         let turnoId = document.querySelector('#turno_id').value;
@@ -10,14 +11,13 @@ window.addEventListener('load', function () {
 
         const formData = {
             id: document.querySelector('#turno_id').value,
-            fechaTurno: document.querySelector('#fechaTurno').value,
-            horaTurno: document.querySelector('#horaTurno').value,
-            pacienteId: document.querySelector('#pacienteId').value,
-            odontologoId: document.querySelector('#odontologoId').value
+            fechaYHora: document.querySelector('#fechaYHora').value,
+            paciente_id: document.querySelector('#paciente_id').value,
+            odontologo_id: document.querySelector('#odontologo_id').value
         };
 
 
-        const url = '/turno';
+        
         const settings = {
             method: 'PUT',
             headers: {
@@ -25,7 +25,7 @@ window.addEventListener('load', function () {
             },
             body: JSON.stringify(formData)
         }
-          fetch(url,settings)
+        fetch(`${url}/turnos`, settings)
           .then(response => response.json())
 
     })
@@ -33,19 +33,18 @@ window.addEventListener('load', function () {
 
 
     function findBy(id) {
-          const url = '/turno'+"/"+id;
+        const url = "http://localhost:8081"
           const settings = {
               method: 'GET'
           }
-          fetch(url,settings)
+          fetch(`${url}/turnos/` + id, settings)
           .then(response => response.json())
           .then(data => {
-              let paciente = data;
+              let turnos = data;
               document.querySelector('#turno_id').value = turno.id;
-              document.querySelector('#fechaTurno').value = turno.fechaTurno;
-              document.querySelector('#horaTurno').value = turno.horaTurno;
-              document.querySelector('#pacienteId').value = turno.pacienteId;
-              document.querySelector('#odontologoId').value = turno.odontologoId;
+              document.querySelector('#fechaYHora').value = turno.fechaYHora;
+              document.querySelector('#paciente_id').value = turno.paciente_id;
+              document.querySelector('#odontologo_id').value = turno.odontologo_id;
 
               document.querySelector('#div_turno_updating').style.display = "block";
           }).catch(error => {

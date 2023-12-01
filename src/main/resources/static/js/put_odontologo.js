@@ -3,6 +3,7 @@ window.addEventListener('load', function () {
 
 
     const formulario = document.querySelector('#update_odontologo_form');
+    const url = "http://localhost:8081"
 
     formulario.addEventListener('submit', function (event) {
         let odontologoId = document.querySelector('#odontologo_id').value;
@@ -16,7 +17,7 @@ window.addEventListener('load', function () {
 
         };
 
-        const url = '/odontologo';
+        
         const settings = {
             method: 'PUT',
             headers: {
@@ -24,7 +25,7 @@ window.addEventListener('load', function () {
             },
             body: JSON.stringify(formData)
         }
-          fetch(url,settings)
+            fetch(`${url}/odontologos/listar`, settings)
           .then(response => response.json())
 
     })
@@ -32,11 +33,11 @@ window.addEventListener('load', function () {
 
 
     function findBy(id) {
-          const url = '/odontologo'+"/"+id;
+          const url = 'http://localhost:8081';
           const settings = {
               method: 'GET'
           }
-          fetch(url,settings)
+          fetch(`${url}/odontologos/` + id, settings)
           .then(response => response.json())
           .then(data => {
               let odontologo = data;
@@ -50,3 +51,6 @@ window.addEventListener('load', function () {
               alert("Error: " + error);
           })
       }
+
+      
+       

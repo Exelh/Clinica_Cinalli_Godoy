@@ -1,72 +1,61 @@
 window.addEventListener('load', function () {
 
-
     const formulario = document.querySelector('#add_new_turno');
-    const fechaYHora = document.querySelector('#fechaYHora');
+    const fechaYHora = document.querySelector('.fecha-hora-turno');
     const odontologo_id = document.querySelector('#odontologo_id');
     const paciente_id = document.querySelector('#paciente_id');
-    const url = "http://localhost:8081"
-
-
+    const url = "http://localhost:8081";
 
     formulario.addEventListener('submit', function (event) {
-        event.preventDefault()
-
+        event.preventDefault();
 
         const payload = {
-            matricula: fechaYHora.value,
-            nombre: odontologo_id.value,
-            apellido: paciente_id.value,
-
+            fechaYHora: fechaYHora.value.replace('T',' ')+":00",
+            odontologoId: parseInt(odontologo_id.value), 
+            pacienteId: parseInt(paciente_id.value) 
         };
-
         console.log(payload);
 
-
-        
         const settings = {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
-                'Content-Type': 'application/json',
-            },
-         }
+                'Content-Type': 'application/json'
+            }
+        };
 
-         console.log("Lanzar la consulta a la API...");
+        console.log("Lanzar la consulta a la API...");
 
-         fetch(`${url}/turnos/registrar`, settings)
+        fetch(`${url}/turnos/registrar`, settings)
             .then(response => response.json())
             .then(data => {
-                console.log("funciono el fetch")
+                console.log("funcionó el fetch");
 
-                 let successAlert = '<div class="alert alert-success alert-dismissible">' +
-                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                     '<strong></strong> Odontologo agregado </div>'
+                let successAlert = '<div class="alert alert-success alert-dismissible">' +
+                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                    '<strong>Turno agregado</strong></div>';
 
-                 document.querySelector('#response').innerHTML = successAlert;
-                 document.querySelector('#response').style.display = "block";
-                 resetUploadForm();
+                document.querySelector('#response').innerHTML = successAlert;
+                document.querySelector('#response').style.display = "block";
+                resetUploadForm();
 
             })
             .catch(error => {
+                let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
+                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                    '<strong>Error, intente nuevamente</strong></div>';
 
-                    let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
-                                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                                     '<strong> Error intente nuevamente</strong> </div>'
+                document.querySelector('#response').innerHTML = errorAlert;
+                document.querySelector('#response').style.display = "block";
 
-                      document.querySelector('#response').innerHTML = errorAlert;
-                      document.querySelector('#response').style.display = "block";
-
-                     resetUploadForm();})
+                resetUploadForm();
+            });
     });
 
-
-    function resetUploadForm(){
-        document.querySelector('#fechaYHora').value = "";
+    function resetUploadForm() {
+        document.querySelector('.fecha-hora-turno').value = "";
         document.querySelector('#odontologo_id').value = "";
-         document.querySelector('#paciente_id').value = "";
-
+        document.querySelector('#paciente_id').value = "";
     }
 
-    
 });

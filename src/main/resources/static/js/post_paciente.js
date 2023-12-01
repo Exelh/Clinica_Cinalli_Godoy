@@ -67,7 +67,6 @@ window.addEventListener('load', function () {
         document.querySelector('#apellido').value = "";
         document.querySelector('#dni').value = "";
         document.querySelector('#fechaIngreso').value = "";
-    
         document.querySelector('#calle').value = "";
         document.querySelector('#numero').value = "";
         document.querySelector('#localidad').value = "";

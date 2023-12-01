@@ -2,7 +2,8 @@ window.addEventListener('load', function () {
 
 
 
-    const formulario = document.querySelector('#update_odontologo_form');
+    const formulario = document.querySelector('#update_paciente_form');
+    const url = "http://localhost:8081"
 
     formulario.addEventListener('submit', function (event) {
         let pacienteId = document.querySelector('#paciente_id').value;
@@ -14,16 +15,17 @@ window.addEventListener('load', function () {
             apellido: document.querySelector('#apellido').value,
             dni: document.querySelector('#dni').value,
             fechaIngreso: document.querySelector('#fechaIngreso').value,
-            email: document.querySelector('#email').value = paciente.email;
-            calle: document.querySelector('#calle').value = paciente.domicilio.calle;
-            numero: document.querySelector('#numero').value = paciente.domicilio.numero;
-            localidad: document.querySelector('#localidad').value = paciente.domicilio.localidad;
-            provincia: document.querySelector('#provincia').value = paciente.domicilio.provincia;
+            calle: document.querySelector('#calle').value,
+            numero: document.querySelector('#numero').value,
+            localidad: document.querySelector('#localidad').value,
+            provincia: document.querySelector('#provincia').value
+            
+
 
         };
 
 
-        const url = '/paciente';
+        
         const settings = {
             method: 'PUT',
             headers: {
@@ -31,7 +33,7 @@ window.addEventListener('load', function () {
             },
             body: JSON.stringify(formData)
         }
-          fetch(url,settings)
+        fetch(`${url}/pacientes`, settings)
           .then(response => response.json())
 
     })
@@ -39,11 +41,11 @@ window.addEventListener('load', function () {
 
 
     function findBy(id) {
-          const url = '/paciente'+"/"+id;
+        const url = "http://localhost:8081"
           const settings = {
               method: 'GET'
           }
-          fetch(url,settings)
+          fetch(`${url}/pacientes/` + id, settings)
           .then(response => response.json())
           .then(data => {
               let paciente = data;
@@ -52,7 +54,6 @@ window.addEventListener('load', function () {
               document.querySelector('#apellido').value = paciente.nombre;
               document.querySelector('#dni').value = paciente.apellido;
               document.querySelector('#fechaIngreso').value = paciente.fechaIngreso;
-              document.querySelector('#email').value = paciente.email;
               document.querySelector('#calle').value = paciente.domicilio.calle;
               document.querySelector('#numero').value = paciente.domicilio.numero;
               document.querySelector('#localidad').value = paciente.domicilio.localidad;

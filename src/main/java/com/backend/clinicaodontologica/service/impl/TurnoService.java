@@ -17,6 +17,7 @@ import com.backend.clinicaodontologica.utils.JsonPrinter;//
 import org.modelmapper.ModelMapper;//
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,7 +30,7 @@ public class TurnoService implements ITurnoService {
     private final PacienteService pacienteService;
     private final OdontologoService odontologoService;
 
-
+@Autowired
     public TurnoService(TurnoRepository turnoRepository, ModelMapper modelMapper, PacienteService pacienteService, OdontologoService odontologoService) {
         this.turnoRepository = turnoRepository;
         this.modelMapper = modelMapper;
@@ -63,6 +64,8 @@ public class TurnoService implements ITurnoService {
         // Asignar el nombre del odontólogo y del paciente al DTO de salida
         turnoSalidaDto.setOdontologo_nombre(odontologo.getNombreCompleto());
         turnoSalidaDto.setPaciente_nombre(paciente.getNombreCompleto());
+        turnoSalidaDto.setOdontologoId(odontologo.getId());
+        turnoSalidaDto.setPacienteId(odontologo.getId());
 
         LOGGER.info("TurnoSalidaDto: " + JsonPrinter.toString(turnoSalidaDto));
         return turnoSalidaDto;
@@ -76,6 +79,7 @@ public class TurnoService implements ITurnoService {
                 .map(turno -> modelMapper.map(turno, TurnoSalidaDto.class)).toList();
         if (LOGGER.isInfoEnabled())
             LOGGER.info("Listado de todos los turnos: {}", JsonPrinter.toString(turnoSalidaDto));
+
 
         return turnoSalidaDto;
     }
@@ -129,8 +133,8 @@ public class TurnoService implements ITurnoService {
                 .addMappings(modelMapper -> modelMapper.map(TurnoEntradaDto::getOdontologo_id, Turno::setOdontologo))
                 .addMappings(modelMapper -> modelMapper.map(TurnoEntradaDto::getPaciente_id, Turno::setPaciente));
         modelMapper.typeMap(Turno.class, TurnoSalidaDto.class)
-                .addMappings(modelMapper -> modelMapper.map(Turno::getOdontologo, TurnoSalidaDto::setOdontologo_id))
-                .addMappings(modelMapper -> modelMapper.map(Turno::getPaciente, TurnoSalidaDto::setPaciente_id));
+                .addMappings(modelMapper -> modelMapper.map(Turno::getOdontologo, TurnoSalidaDto::setOdontologoId))
+                .addMappings(modelMapper -> modelMapper.map(Turno::getPaciente, TurnoSalidaDto::setPacienteId));
 
         modelMapper.typeMap(TurnoModificacionEntradaDto.class, Turno.class)
                 .addMappings(modelMapper -> modelMapper.map(TurnoModificacionEntradaDto::getOdontologoEntradaDto, Turno::setOdontologo))
